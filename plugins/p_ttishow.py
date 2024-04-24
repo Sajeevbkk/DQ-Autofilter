@@ -23,7 +23,9 @@ async def save_group(bot, message):
         if message.chat.id in temp.BANNED_CHATS:
             # Inspired from a boat of a banana tree
             buttons = [[
-                InlineKeyboardButton('Support', url=f'https://t.me/{SUPPORT_CHAT}')
+                InlineKeyboardButton('Movie Group', url=f'https://t.me/{SUPPORT_CHAT}')
+            ],[
+                InlineKeyboardButton('Support', url='t.me/PiratesDeveloperBot')
             ]]
             reply_markup=InlineKeyboardMarkup(buttons)
             k = await message.reply(
@@ -88,9 +90,11 @@ async def leave_a_chat(bot, message):
     except:
         chat = chat
     try:
-        buttons = [[
-            InlineKeyboardButton('Support', url=f'https://t.me/{SUPPORT_CHAT}')
-        ]]
+       buttons = [[
+                InlineKeyboardButton('Movie Group', url=f'https://t.me/{SUPPORT_CHAT}')
+            ],[
+                InlineKeyboardButton('Support', url='t.me/PiratesDeveloperBot')
+            ]]
         reply_markup=InlineKeyboardMarkup(buttons)
         await bot.send_message(
             chat_id=chat,
@@ -128,8 +132,10 @@ async def disable_chat(bot, message):
     await message.reply('Chat Successfully Disabled')
     try:
         buttons = [[
-            InlineKeyboardButton('Support', url=f'https://t.me/{SUPPORT_CHAT}')
-        ]]
+                InlineKeyboardButton('Movie Group', url=f'https://t.me/{SUPPORT_CHAT}')
+            ],[
+                InlineKeyboardButton('Support', url='t.me/PiratesDeveloperBot')
+            ]]
         reply_markup=InlineKeyboardMarkup(buttons)
         await bot.send_message(
             chat_id=chat_, 
