@@ -797,12 +797,12 @@ async def requests(bot, message):
 async def send_msg(bot, message):
     if message.reply_to_message:
         target_id = message.text.split(" ", 1)[1]
-        #target_user_id = int(message.command[1])
+        #target_id = int(message.command[1])
         #out = "Usᴇʀs Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n"
         success = False
         try:
             bot.forward_messages(
-                chat_id=target_user_id,
+                chat_id=target_id,
                 from_chat_id=message.chat.id,
                 message_ids=message.reply_to_message.id)
             #user = await bot.get_users(target_id)
