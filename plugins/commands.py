@@ -796,8 +796,8 @@ async def requests(bot, message):
 @Client.on_message(filters.command("send") & filters.user(ADMINS))
 async def send_msg(bot, message):
     if message.reply_to_message:
-        #target_id = message.text.split(" ", 1)[1]
-        target_user_id = int(message.command[1])
+        target_id = message.text.split(" ", 1)[1]
+        #target_user_id = int(message.command[1])
         #out = "Usᴇʀs Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n"
         success = False
         try:
