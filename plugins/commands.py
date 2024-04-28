@@ -804,7 +804,7 @@ async def send_msg(bot, message):
             await bot.copy_message(
                 chat_id=target_id,
                 from_chat_id=message.chat.id,
-                message_ids=message.reply_to_message.id)
+                message_id=message.reply_to_message.id)
             #user = await bot.get_users(target_id)
             #users = await db.get_all_users()
             #async for usr in users:
