@@ -801,7 +801,7 @@ async def send_msg(bot, message):
         #out = "Usᴇʀs Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n"
         success = False
         try:
-            client.forward_messages(
+            bot.forward_messages(
                 chat_id=target_user_id,
                 from_chat_id=message.chat.id,
                 message_ids=message.reply_to_message.message_id)
