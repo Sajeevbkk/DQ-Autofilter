@@ -796,20 +796,25 @@ async def requests(bot, message):
 @Client.on_message(filters.command("send") & filters.user(ADMINS))
 async def send_msg(bot, message):
     if message.reply_to_message:
-        target_id = message.text.split(" ", 1)[1]
-        out = "Usᴇʀs Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n"
+        #target_id = message.text.split(" ", 1)[1]
+        target_user_id = int(message.command[1])
+        #out = "Usᴇʀs Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n"
         success = False
         try:
-            user = await bot.get_users(target_id)
-            users = await db.get_all_users()
-            async for usr in users:
-                out += f"{usr['id']}"
-                out += '\n'
-            if str(user.id) in str(out):
-                await message.reply_to_message.copy(int(user.id))
+            client.forward_messages(
+                chat_id=target_user_id,
+                from_chat_id=message.chat.id,
+                message_ids=message.reply_to_message.message_id)
+            #user = await bot.get_users(target_id)
+            #users = await db.get_all_users()
+            #async for usr in users:
+             #   out += f"{usr['id']}"
+              #  out += '\n'
+            #if str(user.id) in str(out):
+             #   await message.reply_to_message.copy(int(user.id))
                 success = True
-            else:
-                success = False
+            #else:
+             #   success = False
             if success:
                 await message.reply_text(f"<b>Yᴏᴜʀ ᴍᴇssᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴜᴄᴄᴇssғᴜʟʟʏ sᴇɴᴅ ᴛᴏ {user.mention}.</b>")
             else:
