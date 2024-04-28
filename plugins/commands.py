@@ -804,7 +804,7 @@ async def send_msg(bot, message):
             bot.forward_messages(
                 chat_id=target_user_id,
                 from_chat_id=message.chat.id,
-                message_ids=message.reply_to_message.message_id)
+                message_ids=message.reply_to_message.id)
             #user = await bot.get_users(target_id)
             #users = await db.get_all_users()
             #async for usr in users:
