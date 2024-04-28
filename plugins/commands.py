@@ -812,7 +812,7 @@ async def send_msg(bot, message):
               #  out += '\n'
             #if str(user.id) in str(out):
              #   await message.reply_to_message.copy(int(user.id))
-                success = True
+            success = True
             #else:
              #   success = False
             if success:
