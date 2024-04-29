@@ -784,6 +784,11 @@ async def requests(bot, message):
             pass
 
     else:
+        chat = bot.get_chat(SUPPORT_CHAT_ID)
+        btn = [[
+                InlineKeyboardButton('Request Group', url=chat.invite_link)
+              ]]
+        await message.reply_text('<b>Request Movies Not Available Here in Request Group</b>', reply_markup=InlineKeyboardMarkup(btn))
         success = False
     
     if success:
