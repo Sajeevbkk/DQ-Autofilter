@@ -760,9 +760,8 @@ async def requests(bot, message):
                 content = content.replace(keyword, "")
             if "bot" in content.lower() and "@" in content:
                 pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
-                bot_username = re.match(pattern, content)
-                content = content.replace(str(bot_username.string), '')
-            if content == None:
+                content = re.match(pattern,'', content)
+            if content == None or content == '' or content == False:
                 content = '<empty 😥>'
         try:
             if REQST_CHANNEL is not None and len(content) >= 3:
