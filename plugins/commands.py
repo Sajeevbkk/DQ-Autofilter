@@ -762,7 +762,7 @@ async def requests(bot, message):
                 pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
                 bot_username = re.match(pattern, content)
                 content = content.replace(bot_username.string, '')
-            if content == '':
+            if content == None:
                 content = '<empty 😥>'
         try:
             if REQST_CHANNEL is not None and len(content) >= 3:
