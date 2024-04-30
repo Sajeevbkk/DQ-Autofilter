@@ -766,7 +766,7 @@ async def requests(bot, message):
         try:
             if content == ' ':
                 await message.reply_text("<b>Content Can't be Empty.</b>")
-                success == False
+                success = False
             else:
                 if REQST_CHANNEL is not None and len(content) >= 5:
                     btn = [[
