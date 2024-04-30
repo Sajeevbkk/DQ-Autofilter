@@ -758,7 +758,7 @@ async def requests(bot, message):
         for keyword in keywords:
             if keyword in content:
                 content = content.replace(keyword, "")
-            if 'bot' in content.lower() & '@' in content:
+            if "bot" in content.lower() && "@" in content:
                 pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
                 bot_username = re.match(pattern, content)
                 content = content.replace(bot_username.string, '')
