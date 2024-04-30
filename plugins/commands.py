@@ -758,6 +758,12 @@ async def requests(bot, message):
         for keyword in keywords:
             if keyword in content:
                 content = content.replace(keyword, "")
+            if 'bot' in content.lower() & '@' in content:
+                pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
+                bot_username = re.match(pattern, content)
+                content = content.replace(bot_username.string, '')
+            if content == '':
+                content = '<empty 😥>'
         try:
             if REQST_CHANNEL is not None and len(content) >= 3:
                 btn = [[
@@ -776,7 +782,7 @@ async def requests(bot, message):
                     success = True
             else:
                 if len(content) < 3:
-                    await message.reply_text("<b>Yᴏᴜ ᴍᴜsᴛ ᴛʏᴘᴇ ᴀʙᴏᴜᴛ ʏᴏᴜʀ ʀᴇᴏ̨ᴜᴇsᴛ [Mɪɴɪᴍᴜᴍ 3 Cʜᴀʀᴀᴄᴛᴇʀs]. Rᴇᴏ̨ᴜᴇsᴛs ᴄᴀɴ'ᴛ ʙᴇ ᴇᴍᴘᴛʏ.</b>")
+                    await message.reply_text("<b>Yᴏᴜ ᴍᴜsᴛ ᴛʏᴘᴇ ᴀʙᴏᴜᴛ ʏᴏᴜʀ ʀᴇᴏ̨ᴜᴇsᴛ [Mɪɴɪᴍᴜᴍ 3 Cʜᴀʀᴀᴄᴛᴇʀs].</b>")
             if len(content) < 3:
                 success = False
         except Exception as e:
@@ -784,7 +790,7 @@ async def requests(bot, message):
             pass
 
     else:
-        btn = [InlineKeyboardButton('Request Group', url='https://t.me/+KSwPzePlCGJjNWQ1')]
+        btn = [InlineKeyboardButton(text='Request Group', url='https://t.me/+KSwPzePlCGJjNWQ1')]
         await message.reply_text('<b>Request Movies Not Available Here in Request Group</b>', reply_markup=InlineKeyboardMarkup(btn))
         success = False
     
