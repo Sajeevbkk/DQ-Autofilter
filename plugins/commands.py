@@ -760,7 +760,7 @@ async def requests(bot, message):
                 content = content.replace(keyword, "")
             if "bot" in content.lower() and "@" in content:
                 pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
-                content = re.match(pattern,'', content)
+                content = re.sub(pattern,'', content)
             if content == None or content == '' or content == False:
                 content = '<empty 😥>'
         try:
