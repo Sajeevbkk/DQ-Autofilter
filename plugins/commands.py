@@ -779,6 +779,9 @@ async def requests(bot, message):
                       ]]
                     reported_post = await bot.send_message(chat_id=admin, text=f"<b>𝖱𝖾𝗉𝗈𝗋𝗍𝖾𝗋 : {mention} ({reporter})\n\n𝖬𝖾𝗌𝗌𝖺𝗀𝖾 : {content}</b>", reply_markup=InlineKeyboardMarkup(btn))
                     success = True
+            elif content == '<empty 😥>':
+                await message.reply_text("<b>Content Can't be Empty.</b>")
+                success == False
             else:
                 if len(content) < 3:
                     await message.reply_text("<b>Yᴏᴜ ᴍᴜsᴛ ᴛʏᴘᴇ ᴀʙᴏᴜᴛ ʏᴏᴜʀ ʀᴇᴏ̨ᴜᴇsᴛ [Mɪɴɪᴍᴜᴍ 3 Cʜᴀʀᴀᴄᴛᴇʀs].</b>")
@@ -795,7 +798,7 @@ async def requests(bot, message):
     
     if success:
         btn = [[
-                InlineKeyboardButton('Vɪᴇᴡ Rᴇᴏ̨ᴜᴇsᴛ', url=f"{message.link}") ##f"{reported_post.link}")
+                InlineKeyboardButton('Vɪᴇᴡ Rᴇᴏ̨ᴜᴇsᴛ', url=f"{reported_post.link}")
               ]]
         await message.reply_text("<b>Yᴏᴜʀ ʀᴇᴏ̨ᴜᴇsᴛ ʜᴀs ʙᴇᴇɴ ᴀᴅᴅᴇᴅ! Pʟᴇᴀsᴇ ᴡᴀɪᴛ ғᴏʀ sᴏᴍᴇ ᴛɪᴍᴇ.</b>", reply_markup=InlineKeyboardMarkup(btn))
 
