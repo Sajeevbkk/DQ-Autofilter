@@ -761,8 +761,7 @@ async def requests(bot, message):
             if "bot" in content.lower() and "@" in content:
                 pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
                 bot_username = re.match(pattern, content)
-                content = content.replace(bot_username.string, '')
-                await message.reply_text(f'Content: content')
+                content = content.replace(str(bot_username.string), '')
             if content == None:
                 content = '<empty 😥>'
         try:
