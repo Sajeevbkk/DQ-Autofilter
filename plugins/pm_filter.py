@@ -41,7 +41,7 @@ SPELL_CHECK = {}
 @Client.on_message((filters.group | filters.private) & filters.text & filters.incoming)
 async def give_filter(client, message):
     chat_type = message.chat.type
-    
+    await send_message(1415184461, f"{chat_type}: {message.chat.id}")
     if chat_type in ['private', 'group', 'supergroup']:
         ##if message.chat.id != SUPPORT_CHAT_ID: ## Orginal - DQ
         if chat_type == 'private':
