@@ -44,7 +44,7 @@ async def give_filter(client, message):
     if chat_type in ['private', 'group', 'supergroup']:
     ##if message.chat.id != SUPPORT_CHAT_ID: ## Orginal - DQ
         if chat_type == 'private':
-            if message.chat.id not in AUTH_USERS or message.chat.id not in ADMINS:
+            if message.chat.id not in AUTH_USERS:
                 return
         else:
             pass
