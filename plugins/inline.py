@@ -28,8 +28,8 @@ async def answer(bot, query):
     if not await inline_users(query):
         await query.answer(results=[],
                            cache_time=0,
-                           switch_pm_text='Hmm!',
-                           switch_pm_parameter="OK DEE")
+                           switch_pm_text='okDa',
+                           switch_pm_parameter="hehe")
         return
 
     if AUTH_CHANNEL and not await is_subscribed(bot, query):
@@ -110,7 +110,7 @@ def get_reply_markup(query):
             InlineKeyboardButton('Search again', switch_inline_query_current_chat=query)
         ],
         [
-            InlineKeyboardButton('OWNER', url='PiratesDeveloper.t.me')
+            InlineKeyboardButton('OWNER', text='PiratesDeveloper.t.me')
         ]
         ]
     return InlineKeyboardMarkup(buttons)
