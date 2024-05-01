@@ -110,7 +110,7 @@ def get_reply_markup(query):
             InlineKeyboardButton('Search again', switch_inline_query_current_chat=query)
         ],
         [
-            InlineKeyboardButton('OWNER', text='PiratesDeveloper.t.me')
+            InlineKeyboardButton('OWNER', url='PiratesDeveloper.t.me')
         ]
         ]
     return InlineKeyboardMarkup(buttons)
