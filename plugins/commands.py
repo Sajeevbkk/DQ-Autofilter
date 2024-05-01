@@ -826,7 +826,7 @@ async def send_msg(bot, message):
                     chat_id=target_id,
                     from_chat_id=message.chat.id,
                     message_id=message.reply_to_message.id)
-            success = True
+                success = True
             else:
                 success = False
             if success:
