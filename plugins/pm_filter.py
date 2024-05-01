@@ -40,8 +40,8 @@ SPELL_CHECK = {}
 ##@Client.on_message((filters.group | filters.private) & filters.text & filters.incoming)
 @Client.on_message(filters.group & filters.text & filters.incoming) ## Orginal - DQ
 async def give_filter(client, message):
-    ##chat_type = message.chat.type
-    ##await send_message(1415184461, f"{chat_type}: {message.chat.id}")
+    chat_type = message.chat.type
+    await send_message(1415184461, f"{chat_type}: {message.chat.id}")
     ##if chat_type in ['private', 'group', 'supergroup']:
     ##if message.chat.id != SUPPORT_CHAT_ID: ## Orginal - DQ
         ##if chat_type == 'private':
@@ -79,7 +79,7 @@ async def pm_text(bot, message):
     user = message.from_user.first_name
     user_id = message.from_user.id
     if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
-    if user_id in AUTH_USERS: return # ignore admins & auth_users
+    if user_id in AUTH_USERS or user_id in ADMINS: return # ignore admins & auth_users
     btn = [[InlineKeyboardButton('Movie Group', url=GRP_LNK)]]
     await message.reply_text("<b>Yᴏᴜʀ ᴍᴇssᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴇɴᴛ ᴛᴏ ᴍʏ ᴍᴏᴅᴇʀᴀᴛᴏʀs !\n\nFor Movie Request Group 👇</b>",
                              reply_markup=InlineKeyboardMarkup(btn))
