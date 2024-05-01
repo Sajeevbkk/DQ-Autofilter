@@ -37,8 +37,8 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 SPELL_CHECK = {}
 
-##@Client.on_message((filters.group | filters.private) & filters.text & filters.incoming)
-@Client.on_message(filters.group & filters.text & filters.incoming) ## Orginal - DQ
+@Client.on_message((filters.group | filters.private) & filters.text & filters.incoming)
+##@Client.on_message(filters.group & filters.text & filters.incoming) ## Orginal - DQ
 async def give_filter(client, message):
     chat_type = message.chat.type
     if chat_type in ['private', 'group', 'supergroup']:
