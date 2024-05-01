@@ -112,4 +112,5 @@ def get_reply_markup(query):
         [
             InlineKeyboardButton('OWNER', url='PiratesDeveloper.t.me')
         ]
+        ]
     return InlineKeyboardMarkup(buttons)
