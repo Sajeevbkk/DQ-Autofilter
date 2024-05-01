@@ -808,26 +808,29 @@ async def requests(bot, message):
 async def send_msg(bot, message):
     if message.reply_to_message:
         target_id = message.text.split(" ", 1)[1]
-        #target_id = int(message.command[1])
-        #out = "Usᴇʀs Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n"
+        out = "Usᴇʀs Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n"
         success = False
         try:
-            await bot.copy_message(
-                chat_id=target_id,
-                from_chat_id=message.chat.id,
-                message_id=message.reply_to_message.id)
-            #user = await bot.get_users(target_id)
-            #users = await db.get_all_users()
-            #async for usr in users:
-             #   out += f"{usr['id']}"
-              #  out += '\n'
-            #if str(user.id) in str(out):
-             #   await message.reply_to_message.copy(int(user.id))
+            ##await bot.copy_message(
+              ##  chat_id=target_id,
+                ##from_chat_id=message.chat.id,
+                ##message_id=message.reply_to_message.id)
+            users = await db.get_all_users()
+            user = await bot.get_users(target_id)
+            async for usr in users:
+                out += f"{usr['id']}"
+                out += '\n'
+            if str(user.id) in str(out):
+                ##await message.reply_to_message.copy(int(user.id)) ## Orginal - DQ
+                await bot.copy_message(
+                    chat_id=target_id,
+                    from_chat_id=message.chat.id,
+                    message_id=message.reply_to_message.id)
             success = True
-            #else:
-             #   success = False
+            else:
+                success = False
             if success:
-                await message.reply_text(f"<b>Yᴏᴜʀ ᴍᴇssᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴜᴄᴄᴇssғᴜʟʟʏ sᴇɴᴅ.</b>") #ᴛᴏ {target_id.mention}.</b>")
+                await message.reply_text(f"<b>Yᴏᴜʀ ᴍᴇssᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴜᴄᴄᴇssғᴜʟʟʏ sᴇɴᴅ ᴛᴏ {target_id.mention}.</b>")
             else:
                 await message.reply_text("<b>Tʜɪs ᴜsᴇʀ ᴅɪᴅɴ'ᴛ sᴛᴀʀᴛᴇᴅ ᴛʜɪs ʙᴏᴛ ʏᴇᴛ!</b>")
         except Exception as e:
