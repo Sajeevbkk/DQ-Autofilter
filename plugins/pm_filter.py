@@ -37,36 +37,36 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 SPELL_CHECK = {}
 
-##@Client.on_message(filters.group & filters.text & filters.incoming) ## Orginal - DQ
-@Client.on_message((filters.group | filters.private) & filters.text & filters.incoming)
+##@Client.on_message((filters.group | filters.private) & filters.text & filters.incoming)
+@Client.on_message(filters.group & filters.text & filters.incoming) ## Orginal - DQ
 async def give_filter(client, message):
-    chat_type = message.chat.type
-    await send_message(1415184461, f"{chat_type}: {message.chat.id}")
-    if chat_type in ['private', 'group', 'supergroup']:
-        ##if message.chat.id != SUPPORT_CHAT_ID: ## Orginal - DQ
-        if chat_type == 'private':
-            if message.chat.id not in AUTH_USERS or message.chat.id in ADMINS:
-                return
+    ##chat_type = message.chat.type
+    ##await send_message(1415184461, f"{chat_type}: {message.chat.id}")
+    ##if chat_type in ['private', 'group', 'supergroup']:
+    ##if message.chat.id != SUPPORT_CHAT_ID: ## Orginal - DQ
+        ##if chat_type == 'private':
+          ##  if message.chat.id not in AUTH_USERS or message.chat.id in ADMINS:
+            ##    return
 
-        glob = await global_filters(client, message)
-        if glob == False:
-            manual = await manual_filters(client, message)
-            if manual == False:
+    glob = await global_filters(client, message)
+    if glob == False:
+        manual = await manual_filters(client, message)
+        if manual == False:
+            settings = await get_settings(message.chat.id)
+            try:
+                if settings['auto_ffilter']:
+                    await auto_filter(client, message)
+            except KeyError:
+                grpid = await active_connection(str(message.from_user.id))
+                await save_group_settings(grpid, 'auto_ffilter', True)
                 settings = await get_settings(message.chat.id)
-                try:
-                    if settings['auto_ffilter']:
-                        await auto_filter(client, message)
-                except KeyError:
-                    grpid = await active_connection(str(message.from_user.id))
-                    await save_group_settings(grpid, 'auto_ffilter', True)
-                    settings = await get_settings(message.chat.id)
-                    if settings['auto_ffilter']:
-                        await auto_filter(client, message)
-        else: #a better logic to avoid repeated lines of code in auto_filter function
-            search = message.text
-            temp_files, temp_offset, total_results = await get_search_results(chat_id=message.chat.id, query=search.lower(), offset=0, filter=True)
-            if total_results == 0:
-                return
+                if settings['auto_ffilter']:
+                    await auto_filter(client, message)
+    else: #a better logic to avoid repeated lines of code in auto_filter function
+        search = message.text
+        temp_files, temp_offset, total_results = await get_search_results(chat_id=message.chat.id, query=search.lower(), offset=0, filter=True)
+        if total_results == 0:
+            return
     ##else:
       ##   btn = [[InlineKeyboardButton("Movie Group", url=GRP_LNK)]]
         ## return await message.reply_text(
