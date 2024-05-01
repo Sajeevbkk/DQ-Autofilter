@@ -37,31 +37,38 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 SPELL_CHECK = {}
 
-#@Client.on_message((filters.group | filters.private) & filters.text & filters.incoming)
-@Client.on_message(filters.group & filters.text & filters.incoming)
+##@Client.on_message(filters.group & filters.text & filters.incoming) ## Orginal - DQ
+@Client.on_message((filters.group | filters.private) & filters.text & filters.incoming)
 async def give_filter(client, message):
-    #if message.chat.id != SUPPORT_CHAT_ID:
-    glob = await global_filters(client, message)
-    if glob == False:
-        manual = await manual_filters(client, message)
-        if manual == False:
-            settings = await get_settings(message.chat.id)
-            try:
-                if settings['auto_ffilter']:
-                    await auto_filter(client, message)
-            except KeyError:
-                grpid = await active_connection(str(message.from_user.id))
-                await save_group_settings(grpid, 'auto_ffilter', True)
+    chat_type = message.chat.type
+    
+    if chat_type in ['private', 'group', 'supergroup']:
+        ##if message.chat.id != SUPPORT_CHAT_ID: ## Orginal - DQ
+        if chat_type == 'private':
+            if message.chat.id not in AUTH_USERS or message.chat.id in ADMINS:
+                return
+
+        glob = await global_filters(client, message)
+        if glob == False:
+            manual = await manual_filters(client, message)
+            if manual == False:
                 settings = await get_settings(message.chat.id)
-                if settings['auto_ffilter']:
-                    await auto_filter(client, message)
-    else: #a better logic to avoid repeated lines of code in auto_filter function
-        search = message.text
-        temp_files, temp_offset, total_results = await get_search_results(chat_id=message.chat.id, query=search.lower(), offset=0, filter=True)
-        if total_results == 0:
-            return
+                try:
+                    if settings['auto_ffilter']:
+                        await auto_filter(client, message)
+                except KeyError:
+                    grpid = await active_connection(str(message.from_user.id))
+                    await save_group_settings(grpid, 'auto_ffilter', True)
+                    settings = await get_settings(message.chat.id)
+                    if settings['auto_ffilter']:
+                        await auto_filter(client, message)
+        else: #a better logic to avoid repeated lines of code in auto_filter function
+            search = message.text
+            temp_files, temp_offset, total_results = await get_search_results(chat_id=message.chat.id, query=search.lower(), offset=0, filter=True)
+            if total_results == 0:
+                return
     ##else:
-      ##   btn = [InlineKeyboardButton(text="Movie Group", url=GRP_LNK)]
+      ##   btn = [[InlineKeyboardButton("Movie Group", url=GRP_LNK)]]
         ## return await message.reply_text(
           ##   text=f"<b>Hᴇʏ {message.from_user.mention}, {str(total_results)} ʀᴇsᴜʟᴛs ᴀʀᴇ ғᴏᴜɴᴅ ɪɴ ᴍʏ ᴅᴀᴛᴀʙᴀsᴇ ғᴏʀ ʏᴏᴜʀ ᴏ̨ᴜᴇʀʏ {search}. Tʜɪs ɪs ᴀ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ sᴏ ᴛʜᴀᴛ ʏᴏᴜ ᴄᴀɴ'ᴛ ɢᴇᴛ ғɪʟᴇs ғʀᴏᴍ ʜᴇʀᴇ...\n\nFᴏʀ Mᴏᴠɪᴇs, Please Join Movie Group</b>",
             ## parse_mode=enums.ParseMode.HTML, reply_markup=InlineKeyboardMarkup(btn))
@@ -72,8 +79,10 @@ async def pm_text(bot, message):
     user = message.from_user.first_name
     user_id = message.from_user.id
     if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
-    if user_id in ADMINS: return # ignore admins
-    await message.reply_text("<b>Yᴏᴜʀ ᴍᴇssᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴇɴᴛ ᴛᴏ ᴍʏ ᴍᴏᴅᴇʀᴀᴛᴏʀs !</b>")
+    if user_id in AUTH_USERS: return # ignore admins & auth_users
+    btn = [[InlineKeyboardButton('Movie Group', url=GRP_LNK)]]
+    await message.reply_text("<b>Yᴏᴜʀ ᴍᴇssᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴇɴᴛ ᴛᴏ ᴍʏ ᴍᴏᴅᴇʀᴀᴛᴏʀs !\n\nFor Movie Request Group 👇</b>",
+                             reply_markup=InlineKeyboardMarkup(btn))
     await bot.send_message(
         chat_id=LOG_CHANNEL,
         text=f"<b>#𝐏𝐌_𝐌𝐒𝐆\n\nNᴀᴍᴇ : {user}\n\nID : {user_id}\n\nMᴇssᴀɢᴇ : {content}</b>"
