@@ -44,7 +44,8 @@ async def give_filter(client, message):
     if chat_type in ['private', 'group', 'supergroup']:
     ##if message.chat.id != SUPPORT_CHAT_ID: ## Orginal - DQ
         if chat_type == 'private':
-            if message.chat.id not in AUTH_USERS and message.chat.id in ADMINS:
+            ##if message.chat.id not in AUTH_USERS and message.chat.id in ADMINS:
+            if message.chat.id in ADMINS:
                 return
         else:
             pass
@@ -74,7 +75,8 @@ async def give_filter(client, message):
           ##   text=f"<b>Hᴇʏ {message.from_user.mention}, {str(total_results)} ʀᴇsᴜʟᴛs ᴀʀᴇ ғᴏᴜɴᴅ ɪɴ ᴍʏ ᴅᴀᴛᴀʙᴀsᴇ ғᴏʀ ʏᴏᴜʀ ᴏ̨ᴜᴇʀʏ {search}. Tʜɪs ɪs ᴀ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ sᴏ ᴛʜᴀᴛ ʏᴏᴜ ᴄᴀɴ'ᴛ ɢᴇᴛ ғɪʟᴇs ғʀᴏᴍ ʜᴇʀᴇ...\n\nFᴏʀ Mᴏᴠɪᴇs, Please Join Movie Group</b>",
             ## parse_mode=enums.ParseMode.HTML, reply_markup=InlineKeyboardMarkup(btn))
 
-@Client.on_message(filters.private & filters.text & filters.incoming)
+# Disabling function as all users can now use autofilters
+'''@Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
     content = message.text
     user = message.from_user.first_name
@@ -87,7 +89,7 @@ async def pm_text(bot, message):
     await bot.send_message(
         chat_id=LOG_CHANNEL,
         text=f"<b>#𝐏𝐌_𝐌𝐒𝐆\n\nNᴀᴍᴇ : {user}\n\nID : {user_id}\n\nMᴇssᴀɢᴇ : {content}</b>"
-    )
+    )'''
 
 @Client.on_callback_query(filters.regex(r"^next"))
 async def next_page(bot, query):
