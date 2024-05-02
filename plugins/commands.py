@@ -807,7 +807,7 @@ async def requests(bot, message):
 async def send_msg(bot, message):
     if message.reply_to_message:
         target_id = message.text.split(" ", 1)[1]
-        out = "Usᴇʀs Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n"
+        out = [] ##out = "Usᴇʀs Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n" ## Orginal - DQ
         success = False
         try:##await bot.copy_message(
               ##  chat_id=target_id,
@@ -816,8 +816,9 @@ async def send_msg(bot, message):
             user = await bot.get_users(target_id)
             users = await db.get_all_users()
             async for usr in users:
-                out += f"{usr['id']}"
-                out += '\n'
+                out.append(str(usr))
+                ##out += f"{usr['id']}" ## Orginal - DQ
+                ##out += '\n' ## Orginal - DQ
             if str(user.id) in str(out):
                 await message.reply_to_message.copy(int(user.id))
                 success = True
