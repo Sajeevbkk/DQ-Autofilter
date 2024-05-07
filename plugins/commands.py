@@ -272,9 +272,16 @@ async def start(client, message):
 
     files_ = await get_file_details(file_id)           
     if not files_:
-        print(f'\tFile ID Before: {file_id}')
-        pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
-        print(f'\tFile ID After: {file_id}')
+        try:
+            pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
+        except UnicodeDecodeError:
+            btn = [[InlineKeyboardButton("❆ Owner ❆", url=f"PiratesDeveloper.t.me?text=Authorize_Me")]]
+            await client.send_message(
+                chat_id=message.from_user.id,
+                text="**This Feature just only Available to Authorized Users\nContact Owner for Authorization.\n\nNote: Won't Authorize everybody**",
+                reply_markup=InlineKeyboardMarkup(btn),
+                parse_mode=enums.ParseMode.MARKDOWN
+                )
         try:
             if IS_VERIFY and not await check_verification(client, message.from_user.id):
                 btn = [[
