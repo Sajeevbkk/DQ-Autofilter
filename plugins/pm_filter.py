@@ -47,9 +47,7 @@ async def give_filter(client, message):
             ##if message.chat.id not in AUTH_USERS and message.chat.id in ADMINS:
             if message.chat.id in ADMINS:
                 return
-        else:
-            pass
-
+                
     glob = await global_filters(client, message)
     if glob == False:
         manual = await manual_filters(client, message)
