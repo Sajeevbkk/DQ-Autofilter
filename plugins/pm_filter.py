@@ -41,12 +41,11 @@ SPELL_CHECK = {}
 ##@Client.on_message(filters.group & filters.text & filters.incoming) ## Orginal - DQ
 async def give_filter(client, message):
     chat_type = message.chat.type
-    if chat_type in ['private', 'group', 'supergroup']:
     ##if message.chat.id != SUPPORT_CHAT_ID: ## Orginal - DQ
-        if chat_type == 'private':
-            ##if message.chat.id not in AUTH_USERS and message.chat.id in ADMINS:
-            if message.chat.id in ADMINS:
-                return
+    if chat_type == 'private':
+        ##if message.chat.id not in AUTH_USERS and message.chat.id in ADMINS:
+        if message.chat.id in ADMINS:
+            return
                 
     glob = await global_filters(client, message)
     if glob == False:
