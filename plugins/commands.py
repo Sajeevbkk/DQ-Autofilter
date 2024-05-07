@@ -278,7 +278,6 @@ async def start(client, message):
             if file_id == 'hehe':
                 btn = [[InlineKeyboardButton("❆ Owner ❆", url="PiratesDeveloper.t.me?text=Authorize_Me")]]
                 await message.reply_text(
-                    chat_id=message.from_user.id,
                     text="**This Feature just only Available to Authorized Users\nContact Owner for Authorization.\n\nNote: Won't Authorize everybody**",
                     reply_markup=InlineKeyboardMarkup(btn),
                     parse_mode=enums.ParseMode.MARKDOWN
