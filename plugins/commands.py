@@ -272,7 +272,9 @@ async def start(client, message):
 
     files_ = await get_file_details(file_id)           
     if not files_:
+        print(f'\tFile ID Before: {file_id}')
         pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("utf-8")).split("_", 1)
+        print(f'\tFile ID After: {file_id}')
         try:
             if IS_VERIFY and not await check_verification(client, message.from_user.id):
                 btn = [[
