@@ -273,7 +273,7 @@ async def start(client, message):
     files_ = await get_file_details(file_id)           
     if not files_:
         print(f'\tFile ID Before: {file_id}')
-        pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("utf-8")).split("_", 1)
+        pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
         print(f'\tFile ID After: {file_id}')
         try:
             if IS_VERIFY and not await check_verification(client, message.from_user.id):
@@ -817,7 +817,8 @@ async def send_msg(bot, message):
                 ##message_id=message.reply_to_message.id)
             user = await bot.get_users(target_id)
             users = await db.get_all_users()
-            async for usr in users:
+            ##async for usr in users: ## Orginal - DQ
+            for usr in users:
                 out.append(str(usr))
                 ##out += f"{usr['id']}" ## Orginal - DQ
                 ##out += '\n' ## Orginal - DQ
