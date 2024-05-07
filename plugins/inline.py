@@ -100,7 +100,7 @@ async def answer(bot, query):
         await query.answer(results=[],
                            is_personal = True,
                            cache_time=cache_time,
-                           switch_pm_text='Auth Users Only...',
+                           switch_pm_text='Verify',
                            switch_pm_parameter="okay")
 
 
