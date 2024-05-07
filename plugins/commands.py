@@ -275,8 +275,8 @@ async def start(client, message):
         try:
             pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
         except UnicodeDecodeError:
-            btn = [[InlineKeyboardButton("❆ Owner ❆", url=f"PiratesDeveloper.t.me?text=Authorize_Me")]]
-            await client.send_message(
+            btn = [[InlineKeyboardButton("❆ Owner ❆", url=f"{ADMINS[0].username}.t.me?text=Authorize_Me")]]
+            await message.reply_text(
                 chat_id=message.from_user.id,
                 text="**This Feature just only Available to Authorized Users\nContact Owner for Authorization.\n\nNote: Won't Authorize everybody**",
                 reply_markup=InlineKeyboardMarkup(btn),
