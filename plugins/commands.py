@@ -275,13 +275,18 @@ async def start(client, message):
         try:
             pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
         except UnicodeDecodeError:
-            btn = [[InlineKeyboardButton("❆ Owner ❆", url=f"{ADMINS[0].username}.t.me?text=Authorize_Me")]]
-            await message.reply_text(
-                chat_id=message.from_user.id,
-                text="**This Feature just only Available to Authorized Users\nContact Owner for Authorization.\n\nNote: Won't Authorize everybody**",
-                reply_markup=InlineKeyboardMarkup(btn),
-                parse_mode=enums.ParseMode.MARKDOWN
-                )
+            if file_id == 'hehe':
+                btn = [[InlineKeyboardButton("❆ Owner ❆", url=f"{ADMINS[0].username}.t.me?text=Authorize_Me")]]
+                await message.reply_text(
+                    chat_id=message.from_user.id,
+                    text="**This Feature just only Available to Authorized Users\nContact Owner for Authorization.\n\nNote: Won't Authorize everybody**",
+                    reply_markup=InlineKeyboardMarkup(btn),
+                    parse_mode=enums.ParseMode.MARKDOWN
+                    )
+            else:
+                await Client.send_message(
+                    chat_id=ADMINS[0],
+                    text='**Error:** UnicodeDecodeError')
         try:
             if IS_VERIFY and not await check_verification(client, message.from_user.id):
                 btn = [[
