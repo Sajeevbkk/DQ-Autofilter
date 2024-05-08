@@ -780,7 +780,7 @@ async def requests(bot, message):
                 content = ' '
         try:
             if content == ' ':
-                await message.reply_text("<b>Content Can't be Empty.</b>")
+                await message.reply_text("<strong>Content Can't be Empty.\n\nTry this format:</strong> <i>Dune 2021</i>")
                 success = False
             else:
                 if REQST_CHANNEL is not None and len(content) >= 5:
@@ -800,7 +800,7 @@ async def requests(bot, message):
                         success = True
                 else:
                     if len(content) < 5:
-                        await message.reply_text("<b>Yᴏᴜ ᴍᴜsᴛ ᴛʏᴘᴇ ᴀʙᴏᴜᴛ ʏᴏᴜʀ ʀᴇᴏ̨ᴜᴇsᴛ [Mɪɴɪᴍᴜᴍ 3 Cʜᴀʀᴀᴄᴛᴇʀs].</b>")
+                        await message.reply_text("<b>Yᴏᴜ ᴍᴜsᴛ ᴛʏᴘᴇ ᴀʙᴏᴜᴛ ʏᴏᴜʀ ʀᴇᴏ̨ᴜᴇsᴛ [Mɪɴɪᴍᴜᴍ 5 Cʜᴀʀᴀᴄᴛᴇʀs].</b>")
                 if len(content) < 5:
                     success = False
         except Exception as e:
