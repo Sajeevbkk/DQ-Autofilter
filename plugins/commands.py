@@ -783,29 +783,29 @@ async def requests(bot, message):
                 await message.reply_text("<strong>Content Can't be Empty.\n\nTry this format:</strong> <code>/request Dune 2021</code>")
                 success = False
             else:
-                if re.search(r'\d{4}', content):
-                    await message.reply_text("<strong>Please add movie released Year.\n\nTry this format:</strong> <code>/request Dune 2021</code>")
-                    success =  False
-                else:
-                    if REQST_CHANNEL is not None and len(content) >= 5:
+                if REQST_CHANNEL is not None and len(content) >= 3:
+                    if re.search(r'\d{4}', content):
+                        await message.reply_text("<strong>Please add movie released Year.\n\nTry this format:</strong> <code>/request Dune 2021</code>")
+                        success =  False
+                    else:
                         btn = [[
                                 InlineKeyboardButton('Vɪᴇᴡ Rᴇᴏ̨ᴜᴇsᴛ', url=f"{message.link}"),
                                 InlineKeyboardButton('Sʜᴏᴡ Oᴘᴛɪᴏɴs', callback_data=f'show_option#{reporter}')
                               ]]
                         reported_post = await bot.send_message(chat_id=REQST_CHANNEL, text=f"<b>𝖱𝖾𝗉𝗈𝗋𝗍𝖾𝗋 : {mention} ({reporter})\n\n𝖬𝖾𝗌𝗌𝖺𝗀𝖾 : {content}</b>", reply_markup=InlineKeyboardMarkup(btn))
                         success = True
-                    elif len(content) >= 5:
-                        for admin in ADMINS:
-                            btn = [[
+                        
+                elif len(content) >= 3:
+                    for admin in ADMINS:
+                        btn = [[
                                 InlineKeyboardButton('Vɪᴇᴡ Rᴇᴏ̨ᴜᴇsᴛ', url=f"{message.link}"),
                                 InlineKeyboardButton('Sʜᴏᴡ Oᴘᴛɪᴏɴs', callback_data=f'show_option#{reporter}')
                               ]]
-                            reported_post = await bot.send_message(chat_id=admin, text=f"<b>𝖱𝖾𝗉𝗈𝗋𝗍𝖾𝗋 : {mention} ({reporter})\n\n𝖬𝖾𝗌𝗌𝖺𝗀𝖾 : {content}</b>", reply_markup=InlineKeyboardMarkup(btn))
-                            success = True
-                    else:
-                        if len(content) < 5:
-                            await message.reply_text("<b>Yᴏᴜ ᴍᴜsᴛ ᴛʏᴘᴇ ᴀʙᴏᴜᴛ ʏᴏᴜʀ ʀᴇᴏ̨ᴜᴇsᴛ [Mɪɴɪᴍᴜᴍ 5 Cʜᴀʀᴀᴄᴛᴇʀs].</b>")
-                    if len(content) < 5:
+                        reported_post = await bot.send_message(chat_id=admin, text=f"<b>𝖱𝖾𝗉𝗈𝗋𝗍𝖾𝗋 : {mention} ({reporter})\n\n𝖬𝖾𝗌𝗌𝖺𝗀𝖾 : {content}</b>", reply_markup=InlineKeyboardMarkup(btn))
+                        success = True
+                else:
+                    if len(content) < 3:
+                        await message.reply_text("<b>Yᴏᴜ ᴍᴜsᴛ ᴛʏᴘᴇ ᴀʙᴏᴜᴛ ʏᴏᴜʀ ʀᴇᴏ̨ᴜᴇsᴛ [Mɪɴɪᴍᴜᴍ 3 Cʜᴀʀᴀᴄᴛᴇʀs].</b>")
                         success = False
         except Exception as e:
             await message.reply_text(f"Eʀʀᴏʀ: {e}")
