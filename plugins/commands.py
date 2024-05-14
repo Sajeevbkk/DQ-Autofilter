@@ -774,8 +774,8 @@ async def requests(bot, message):
             if keyword in content:
                 content = content.replace(keyword, "")
             if "bot" in content.lower() and "@" in content:
-                pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
-                content = re.sub(pattern,'', content)
+                bot_pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
+                content = re.sub(bot_pattern,'', content)
             if content == None or content == '' or content == False:
                 content = ' '
         try:
@@ -784,7 +784,8 @@ async def requests(bot, message):
                 success = False
             else:
                 if REQST_CHANNEL is not None and len(content) >= 3:
-                    if re.search(r'\d{4}', content):
+                    year_pattern = r'\d{4}'
+                    if re.search(year_pattern, content):
                         await message.reply_text("<strong>Please add movie released Year.\n\nTry this format:</strong> <code>/request Dune 2021</code>")
                         success =  False
                     else:
