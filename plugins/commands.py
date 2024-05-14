@@ -780,9 +780,14 @@ async def requests(bot, message):
                 content = ' '
         try:
             if content == ' ':
-                await message.reply_text("<strong>Content Can't be Empty.\n\nTry this format:</strong> <i>Dune 2021</i>")
+                await message.reply_text("<strong>Content Can't be Empty.\n\nTry this format:</strong> <code>Dune 2021</code>")
                 success = False
             else:
+                if re.search(r'\d{4}', content):
+                    await message.reply_text("<strong>Please add movie released Year.\n\nTry this format:</strong> <code>Dune 2021</code>")
+                    success =  False
+                    return
+                    
                 if REQST_CHANNEL is not None and len(content) >= 5:
                     btn = [[
                             InlineKeyboardButton('Vɪᴇᴡ Rᴇᴏ̨ᴜᴇsᴛ', url=f"{message.link}"),
