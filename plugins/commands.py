@@ -774,7 +774,7 @@ async def requests(bot, message):
             if keyword in content:
                 content = content.replace(keyword, "")
             if "bot" in content.lower() and "@" in content:
-                bot_pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
+                bot_pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)\s'
                 content = re.sub(bot_pattern,'', content)
             if content == None or content == '' or content == False:
                 content = ' '
@@ -784,7 +784,8 @@ async def requests(bot, message):
                 success = False
             else:
                 if REQST_CHANNEL is not None and len(content) >= 3:
-                    year_pattern = r'\s+\w+\s\d{4}'
+                    ##content = content.replace(' ', '_')
+                    year_pattern = r'+\w+\s\d{4}'
                     if re.match(year_pattern, content):
                         btn = [[
                                 InlineKeyboardButton('Vɪᴇᴡ Rᴇᴏ̨ᴜᴇsᴛ', url=f"{message.link}"),
