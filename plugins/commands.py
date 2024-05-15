@@ -774,7 +774,7 @@ async def requests(bot, message):
             if keyword in content:
                 content = content.replace(keyword, "")
             if "bot" in content.lower() and "@" in content:
-                bot_pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)\s'
+                bot_pattern = r'@\w+(bot|bOt|boT|bOT|Bot|BOt|BoT|BOT)'
                 content = re.sub(bot_pattern,'', content)
             if content == None or content == '' or content == False:
                 content = ' '
@@ -784,14 +784,14 @@ async def requests(bot, message):
                 success = False
             else:
                 if REQST_CHANNEL is not None and len(content) >= 3:
-                    ##content = content.replace(' ', '_')
-                    year_pattern = r'+\w+\s\d{4}'
+                    content = content.replace(' ', '_')
+                    year_pattern = r'_+\w+\s\d{4}'
                     if re.match(year_pattern, content):
                         btn = [[
                                 InlineKeyboardButton('Vɪᴇᴡ Rᴇᴏ̨ᴜᴇsᴛ', url=f"{message.link}"),
                                 InlineKeyboardButton('Sʜᴏᴡ Oᴘᴛɪᴏɴs', callback_data=f'show_option#{reporter}')
                               ]]
-                        reported_post = await bot.send_message(chat_id=REQST_CHANNEL, text=f"<b>𝖱𝖾𝗉𝗈𝗋𝗍𝖾𝗋 : {mention} ({reporter})\n\n𝖬𝖾𝗌𝗌𝖺𝗀𝖾 : {content}</b>", reply_markup=InlineKeyboardMarkup(btn))
+                        reported_post = await bot.send_message(chat_id=REQST_CHANNEL, text=f"<b>𝖱𝖾𝗉𝗈𝗋𝗍𝖾𝗋 : {mention} ({reporter})\n\n𝖬𝖾𝗌𝗌𝖺𝗀𝖾 : {content.lstrip('_')}</b>", reply_markup=InlineKeyboardMarkup(btn))
                         success = True
                     else:
                         await message.reply_text("<strong>Please add movie released Year.\n\nTry this format:</strong> <code>/request Dune 2021</code>")
