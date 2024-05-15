@@ -784,18 +784,18 @@ async def requests(bot, message):
                 success = False
             else:
                 if REQST_CHANNEL is not None and len(content) >= 3:
-                    year_pattern = r'\w+ \d{4}'
-                    if not re.match(year_pattern, content):
-                        await message.reply_text("<strong>Please add movie released Year.\n\nTry this format:</strong> <code>/request Dune 2021</code>")
-                        success =  False
-                    else:
+                    year_pattern = r'\w+\s\d{4}'
+                    if re.match(year_pattern, content):
                         btn = [[
                                 InlineKeyboardButton('Vɪᴇᴡ Rᴇᴏ̨ᴜᴇsᴛ', url=f"{message.link}"),
                                 InlineKeyboardButton('Sʜᴏᴡ Oᴘᴛɪᴏɴs', callback_data=f'show_option#{reporter}')
                               ]]
                         reported_post = await bot.send_message(chat_id=REQST_CHANNEL, text=f"<b>𝖱𝖾𝗉𝗈𝗋𝗍𝖾𝗋 : {mention} ({reporter})\n\n𝖬𝖾𝗌𝗌𝖺𝗀𝖾 : {content}</b>", reply_markup=InlineKeyboardMarkup(btn))
                         success = True
-                        
+                    else:
+                        await message.reply_text("<strong>Please add movie released Year.\n\nTry this format:</strong> <code>/request Dune 2021</code>")
+                        success =  False
+    
                 elif len(content) >= 3:
                     for admin in ADMINS:
                         btn = [[
