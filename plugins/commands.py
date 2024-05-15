@@ -283,6 +283,11 @@ async def start(client, message):
                     parse_mode=enums.ParseMode.MARKDOWN
                     )
                 return
+            elif file_id == 'okay':
+                await message.reply_text(
+                    text = "**Don't Play With Me. LOL**\n\nSee /start for Getting help to use me",
+                    parse_mode=enums.ParseMode.MARKDOWN
+                    )
             else:
                 await client.send_message(
                     chat_id=ADMINS[0],
