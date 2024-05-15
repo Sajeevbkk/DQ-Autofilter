@@ -784,8 +784,8 @@ async def requests(bot, message):
                 success = False
             else:
                 if REQST_CHANNEL is not None and len(content) >= 3:
-                    year_pattern = r'\d{4}'
-                    if re.search(year_pattern, content):
+                    year_pattern = r'\w+ \d{4}'
+                    if not re.match(year_pattern, content):
                         await message.reply_text("<strong>Please add movie released Year.\n\nTry this format:</strong> <code>/request Dune 2021</code>")
                         success =  False
                     else:
