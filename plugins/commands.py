@@ -785,7 +785,7 @@ async def requests(bot, message):
             else:
                 if REQST_CHANNEL is not None and len(content) >= 3:
                     content = content.replace(' ', '_')
-                    year_pattern = r'_+\w+\s\d{4}'
+                    year_pattern = r'_+\w+_\d{4}'
                     if re.match(year_pattern, content):
                         btn = [[
                                 InlineKeyboardButton('Vɪᴇᴡ Rᴇᴏ̨ᴜᴇsᴛ', url=f"{message.link}"),
