@@ -773,7 +773,10 @@ async def requests(bot, message):
         reporter = str(message.from_user.id)
         mention = message.from_user.mention
         success = True
-        content = message.text
+        if message.reply_to_message:
+            content = message.reply_to_message.text
+        else:
+            content = message.text
         keywords = ["#request", "/request", "#Request", "/Request"]
         for keyword in keywords:
             if keyword in content:
